@@ -7,14 +7,15 @@
 <title>欢迎来到极简博客</title>
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/index.css" />
-<script src="js/swap.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body class="clear-f">
+
 	<div class="top_nav clear-f">
 		<div class="logo">
 			<img src="img/logo.png" alt="logo" />
 		</div>
-		<div class="welcome">欢迎注册</div>
+		<div class="welcome">欢迎来到极简博客</div>
 	</div>
 	<div class="main clear-f">
 		<div class="col-5 font clear-f">
@@ -30,21 +31,26 @@
 						<a href="javascript:;" id="register_tip" onclick="swap_register()">注册</a>
 					</div>
 				</div>
-				
-				
+
+
 				<!-- 登陆div -->
 				<div id="login" class="login clear-f">
 					<form action="LoginServlet" method="post">
 						<div class="item clear-f">
-							<input type="text" class="col-8 input_info" placeholder="用户名" name="username"/>
+							<input type="text" class="col-8 input_info" placeholder="用户名"
+								name="username" />
 						</div>
 						<div class="item clear-f">
-							<input type="password" class="col-8 input_info" placeholder="密码" name="password"/>
+							<input type="password" class="col-8 input_info" placeholder="密码"
+								name="password" />
 						</div>
 						<div class="item clear-f">
-							<div class="tip_yan">验证码</div>
-							<input type="text" class="input_yan" name="yanzheng"/>
+							<div class="tip_yan">
+								<img id="vCode" onclick="setVCode(this);" alt="验证码">
+							</div>
+							<input type="text" class="input_yan" name="validate" />
 						</div>
+						<span id="errorcode"></span>
 						<div class="clear-f">
 							<input type="submit" value="登陆" class="col-5 submit_buttion" />
 							<input type="reset" value="重置" class="col-5 submit_buttion" />
@@ -56,13 +62,16 @@
 				<div id="register" class="register clear-f">
 					<form action="RegisterServlet" method="post">
 						<div class="item">
-							<input type="text" class="input_info2" placeholder="用户名" name="username" id="username"/>
+							<input type="text" class="input_info2" placeholder="用户名"
+								name="username" id="username" />
 						</div>
 						<div class="item">
-							<input type="text" class="input_info2" placeholder="密码" id="yanzheng" name="password"/>
+							<input type="text" class="input_info2" placeholder="密码"
+								id="yanzheng" name="password" />
 						</div>
 						<div class="item">
-							<input type="text" class="input_info2" placeholder="验证密码" id="yanzheng2"/>
+							<input type="text" class="input_info2" placeholder="验证密码"
+								id="yanzheng2" />
 						</div>
 						<div class="item">
 							<select name="gender" class="select_gender" name="gender">
@@ -71,13 +80,15 @@
 							</select> <input type="text" placeholder="年龄" />
 						</div>
 						<div class="item">
-							<input type="text" class="input_info2" placeholder="手机号" name="telephone" />
+							<input type="text" class="input_info2" placeholder="手机号"
+								name="telephone" />
 						</div>
 						<div class="item">
-							<input type="text" class="input_info2" placeholder="邮箱" name="email"/>
+							<input type="text" class="input_info2" placeholder="邮箱"
+								name="email" />
 						</div>
-						<input type="submit" value="注册" class="submit_buttion" />
-						<input type="reset" value="重置" class="submit_buttion" />
+						<input type="submit" value="注册" class="submit_buttion" /> <input
+							type="reset" value="重置" class="submit_buttion" />
 					</form>
 
 				</div>
@@ -91,6 +102,11 @@
 			href="#">帮助 </a>&nbsp;|&nbsp; <span style="color: #AAA;">
 			@jssd www.lovelybaobao.cn </span>
 	</div>
+
+	<script type="text/javascript">
+		window.onload = setVCode();
+		
+	</script>
 
 </body>
 </html>

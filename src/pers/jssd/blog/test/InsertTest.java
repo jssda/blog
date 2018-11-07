@@ -5,7 +5,7 @@ package pers.jssd.blog.test;
 
 import pers.jssd.blog.bean.User;
 import pers.jssd.blog.dao.UserDao;
-import pers.jssd.blog.daoImp.UserDaoImp;
+import pers.jssd.blog.dao.Imp.UserDaoImp;
 
 /**
  * @author jssd

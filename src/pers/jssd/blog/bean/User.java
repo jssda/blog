@@ -21,6 +21,10 @@ public class User {
 	private Date createtime;
 	private Date updatetime;
 	
+	public User() {
+		// TODO Auto-generated constructor stub
+		super();
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -81,4 +85,14 @@ public class User {
 	public void setUpdatetime(Date updatetime) {
 		this.updatetime = updatetime;
 	}
+	
+	@Override
+	public String toString() {
+		return "User [getId()=" + getId() + ", getName()=" + getName() + ", getPassword()=" + getPassword()
+				+ ", getGender()=" + getGender() + ", getAge()=" + getAge() + ", getTelephone()=" + getTelephone()
+				+ ", getEmail()=" + getEmail() + ", getIntroduction()=" + getIntroduction() + ", getCreatetime()="
+				+ getCreatetime() + ", getUpdatetime()=" + getUpdatetime() + "]";
+	}
+	
+	
 }

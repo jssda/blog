@@ -15,3 +15,10 @@ function swap_login() {
 	var con=document.getElementById("container");
 	con.style.top="50px";
 }
+
+function setVCode()
+{
+	var vCode = document.getElementById('vCode');
+	vCode.src="ValidateImageServlet"+"?"+(new Date()).valueOf();
+	//vCode.src="validateImage";
+}	
