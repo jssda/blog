@@ -3,6 +3,8 @@
  */
 package pers.jssd.blog.service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import pers.jssd.blog.bean.User;
 
 /**
@@ -12,9 +14,17 @@ import pers.jssd.blog.bean.User;
 public interface UserService {
 	
 	/**
+	 * 注册用户
 	 * @param user
-	 * @return String
+	 * @return boolean
+	 * @throws SQLIntegrityConstraintViolationException 
 	 */
-	public boolean checkPassword(User user);
+	public boolean registerUser(User user) throws SQLIntegrityConstraintViolationException;
 	
+	
+	/**
+	 * @param user
+	 * @return User
+	 */
+	public User getUser(User user);
 }

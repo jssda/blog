@@ -51,11 +51,17 @@ public class LoginServlet extends HttpServlet{
 		
 		User user = new User();
 		user.setName(userName);
-		user.setPassword(passWord);
+		user = userService.getUser(user);
 		
-		if(userService.checkPassword(user)) {
-			session.setAttribute("loginUser", userName);
-			dispatcher = req.getRequestDispatcher("/main.jsp");
+		if(user != null && user.getPassword().equals(passWord)) {
+			session.setAttribute("loginId", user.getId());
+			resp.sendRedirect("/blog/MainServlet");
+//			dispatcher = req.getRequestDispatcher("/main.jsp");
+//			dispatcher.forward(req, resp);
+		} else if(user != null) {
+			req.setAttribute("username", userName);
+			req.setAttribute("errorCode", 2);
+			dispatcher = req.getRequestDispatcher("/LoginError.jsp");
 			dispatcher.forward(req, resp);
 		} else {
 			req.setAttribute("username", userName);

@@ -3,6 +3,8 @@
  */
 package pers.jssd.blog.test;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import pers.jssd.blog.bean.User;
 import pers.jssd.blog.dao.UserDao;
 import pers.jssd.blog.dao.Imp.UserDaoImp;
@@ -24,7 +26,12 @@ public class InsertTest {
 		user.setIntroduction("本宝宝还没有想好");
 		
 		UserDao userDaoImp = new UserDaoImp();
-		userDaoImp.addUser(user);
+		try {
+			userDaoImp.addUser(user);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

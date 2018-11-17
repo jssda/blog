@@ -3,6 +3,7 @@
  */
 package pers.jssd.blog.dao;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import pers.jssd.blog.bean.User;
@@ -20,7 +21,7 @@ public interface UserDao {
 	 * @param user
 	 * @return boolean
 	 */
-	public boolean addUser(User user);
+	public boolean addUser(User user)  throws SQLIntegrityConstraintViolationException;
 	
 	/**
 	 * 删除用户
@@ -41,6 +42,12 @@ public interface UserDao {
 	 * @param user
 	 * @return List<User>
 	 */
-	public List<User> queryUser(User user);
+	public List<User> queryUserList(User user);
+	
+	/**
+	 * @param user
+	 * @return User
+	 */
+	public User queryUser(User user);
 	
 }

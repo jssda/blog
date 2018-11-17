@@ -3,9 +3,6 @@
  */
 package pers.jssd.blog.test;
 
-import java.sql.ResultSet;
-import java.util.List;
-
 import pers.jssd.blog.bean.User;
 import pers.jssd.blog.dao.UserDao;
 import pers.jssd.blog.dao.Imp.UserDaoImp;
