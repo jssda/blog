@@ -42,4 +42,12 @@ public class UserServiceImp implements UserService {
 		// TODO Auto-generated method stub
 		return userDao.queryUser(user);
 	}
+	/* (non-Javadoc)
+	 * @see pers.jssd.blog.service.UserService#modifyUser(pers.jssd.blog.bean.User)
+	 */
+	@Override
+	public boolean modifyUser(User user) {
+		// TODO Auto-generated method stub
+		return userDao.modifyUser(user);
+	}
 }

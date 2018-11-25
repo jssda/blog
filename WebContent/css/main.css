@@ -50,7 +50,7 @@ body {
 }
 
 .side-bar .nav a:hover,
-.side-bar .tag-list a:hover {
+.side-bar .tag-list a:hover {    
 	color: #eee;
 }
 
@@ -59,7 +59,7 @@ body {
 }
 
 .main {
-	float: right;
+	float: left;
 	width: 60%;
 	color: #454545;
 }
@@ -67,7 +67,6 @@ body {
 .edit-list {
 	float: right;
 	width: 20%;
-	height: 100px;
 	background-color: black;
 }
 

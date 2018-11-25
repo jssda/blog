@@ -1,0 +1,74 @@
+* {
+	margin: 0;
+}
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+.clear-f: after,
+.clear-f: before {
+	content: " ";
+	display: block;
+	clear: both;
+}
+
+.mainbox {
+	border: solid black 3 px;
+	background: antiquewhite;
+	margin: 100 px 320 px;
+}
+
+.mainbox.title {
+	font - size: 35 px;
+	padding: 30 px 50 px;
+}
+
+.mainbox.body {
+	padding: 30 px 30 px;
+	border: groove bisque 4 px;
+}
+
+.mainbox.body.key {
+	/*background-color: white;*/
+}
+
+.mainbox.body.value {
+	/*background-color: whitesmoke;*/
+	width: 400 px;
+}
+
+.mainbox.body.key.item,
+.mainbox.body.signature.item {
+	font - size: 25 px;
+	padding: 10 px 0 px;
+	padding - left: 30 px;
+	padding - right: 10 px;
+	width: 120 px;
+}
+
+.mainbox.body.value.item {
+	height: 28 px;
+	margin: 10 px 30 px;
+	width: 300 px;
+}
+
+.mainbox.body.signature>textarea {
+	resize: none;
+	width: 13e m;
+	height: 12e m;
+}
+
+.mainbox.body.save {
+	padding: 10 px 0;
+}
+
+.mainbox.body.save>input {
+	margin: 0 10 px;
+	width: 80 px;
+	height: 30 px;
+}

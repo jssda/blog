@@ -13,13 +13,13 @@
 <body>
 
 	<%
-		List<Blog> list = (List<Blog>)request.getAttribute("blogList");
+		//List<Blog> list = (List<Blog>)request.getAttribute("blogList");
 		List<Type> typeList = (List<Type>) request.getAttribute("typeList");
 	%>
 
 	<div class="side-bar">
 		<div class="header">
-			<a href="#" class="logo"><%=request.getAttribute("name") %></a>
+			<a href="/blog/UserManageServlet" class="logo"><%=request.getAttribute("name") %></a>
 			<div class="intro"><%=request.getAttribute("introduction") %></div>
 		</div>
 		<div class="tag-list">
@@ -29,37 +29,17 @@
 				<input type="submit" class="item" value="搜索"/>
 			</form>
 			<br />
-			<%
-			//System.out.println(typeList.size());
-			
-			//if(num > 10)	num = 10;
-			for(int i = 0; i < typeList.size(); i ++) { %>
+				<a href="/blog/MainServlet#" class="item" >所有类型</a>
+			<%for(int i = 0; i < typeList.size(); i ++) { %>
 				<a href="javascript:;" class="item" id="type" name="type" onclick="typeSerch(this)"><%=typeList.get(i).getType() %></a>
 			<%} %>
 		</div>
 	</div>
-	<div class="main">
-		<div class="edit-list">
-		</div>
-		<div class="article-list">
-			<%
-			int blogNum = list.size();
-			if(blogNum == 0) {
-			%>
-				<p>没有文章</p>
-			<%
-			} else {
-				for(int i = 0; i < list.size(); i ++) { %>
-				<div class="item">
-					<a href="article.html" class="title"><%=list.get(i).getTitle() %></a>
-					<div class="status">发布于<%=list.get(i).getCreateTime().toString() %> | 
-					<%=list.get(i).getVisitCount() %>阅读人次</div>
-					<div class="content"><pre><%=list.get(i).getInfo() %></pre></div>
-				</div>
-			<%	}
-			}%>
-
-		</div>
+	<div class="main" style="float: left;">
+		<jsp:include page="/bloglist.jsp"></jsp:include>
+		<!--<%@include file="/bloglist.jsp" %>-->
+	</div>
+	<div class="edit-list" style="float: left;">
 	</div>
 
 	<script type="text/javascript">

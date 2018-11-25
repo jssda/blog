@@ -7,6 +7,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import pers.jssd.blog.bean.Blog;
+import pers.jssd.blog.bean.PageBean;
 
 /**
  * @author jssd
@@ -36,11 +37,33 @@ public interface BlogDao {
 	 */
 	public boolean updateBlog(Blog blogText);
 	
+	/**
+	 * @param blogText
+	 * @param currPage
+	 * @param pageSize
+	 * @return List<Blog>
+	 */
+	public List<Blog> queryBlog(Blog blogText, int currPage, int pageSize);
 	
 	/**
-	 * 查找用户
-	 * @param blogText
-	 * @return BlogText
+	 * @param blog
+	 * @return List<Blog>
 	 */
-	public List<Blog> queryBlog(Blog blogText);
+	public List<Blog> queryBlog(Blog blog);
+	
+	/**
+	 * 按题目查找博客
+	 * @param blog
+	 * @return Blog
+	 */
+	public Blog queryBlogByName(Blog blog);
+	
+	/**
+	 * 分页查找
+	 * @param currpage
+	 * @param Type type
+	 * @return PageBean<Blog>
+	 */
+	public PageBean<Blog> findPageBean(int currpage, String type);
+
 }

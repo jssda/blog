@@ -228,7 +228,7 @@ public class UserDaoImp implements UserDao{
 				}
 			} else {
 				String sql = "update user set name=?, password=?, gender=?, age=?, "
-						+ "telephone=?, email=?, introduction=?, updatetime=? where id = ";
+						+ "telephone=?, email=?, introduction=?, updatetime=? where id = ?;";
 				
 				sta = conn.prepareStatement(sql);
 				int index = 1;
@@ -240,6 +240,7 @@ public class UserDaoImp implements UserDao{
 				sta.setString(index ++, user.getEmail());
 				sta.setString(index ++, user.getIntroduction());
 				sta.setTimestamp(index ++, new java.sql.Timestamp(new Date().getTime()));
+				sta.setInt(index ++, user.getId());
 				
 				int count = sta.executeUpdate();
 				if(count == 1) {

@@ -27,4 +27,11 @@ public interface UserService {
 	 * @return User
 	 */
 	public User getUser(User user);
+	
+	/**
+	 * @param user
+	 * @return boolean
+	 */
+	public boolean modifyUser(User user);
+	
 }

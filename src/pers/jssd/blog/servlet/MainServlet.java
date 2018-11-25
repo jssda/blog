@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import pers.jssd.blog.bean.Blog;
+import pers.jssd.blog.bean.PageBean;
 import pers.jssd.blog.bean.Type;
 import pers.jssd.blog.bean.User;
 import pers.jssd.blog.service.BlogService;
@@ -55,13 +56,21 @@ public class MainServlet extends HttpServlet {
 		String type = request.getParameter("type");
 		Blog blog = new Blog();
 		Type ty = new Type();
-		if(type != null && !type.trim().equals("")) {
+		if(type != null && !type.trim().equals("") && !type.trim().equals("null")) {
+			System.out.println(type);
 			blog.setType(type);
-//			ty.setType(type);
+		} else {
+			type = null;
 		}
-		List<Blog> blogList = blogService.queryBlogList(blog);
+		int currPage = 1;
+		String strCurrPage = request.getParameter("currPage");
+		if(strCurrPage != null && !strCurrPage.trim().equals("")) {
+			currPage = Integer.parseInt(strCurrPage);
+		}
+		//List<Blog> blogList = blogService.queryBlogList(blog);
+		PageBean<Blog> pageBean = blogService.findPageBean(currPage, type);
 		List<Type> typeList = typeService.queryTypeList(ty);
-		request.setAttribute("blogList", blogList);
+		request.setAttribute("pageBean", pageBean);
 		request.setAttribute("typeList", typeList);
 		
 		request.getRequestDispatcher("/main.jsp").forward(request, response);

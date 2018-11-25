@@ -28,6 +28,8 @@
 1. user表
 
 ```mysql
+DROP TABLE IF EXISTS `user`;
+
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL COMMENT '用户姓名',
@@ -39,9 +41,9 @@ CREATE TABLE `user` (
   `introduction` varchar(255) DEFAULT NULL,
   `createtime` datetime DEFAULT NULL,
   `updatetime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
+  PRIMARY KEY (`id`,`name`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 ```
 
 
@@ -50,25 +52,32 @@ CREATE TABLE `user` (
 
 
 ```mysql
-CREATE TABLE `blogtext` (
+DROP TABLE IF EXISTS `blog`;
+
+CREATE TABLE `blog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `author` varchar(32) NOT NULL,
   `title` varchar(225) NOT NULL,
   `info` text,
-  `type` varchar(32) DEFAULT NULL,
+  `type` varchar(32) DEFAULT NULL COMMENT '类别',
   `createtime` datetime DEFAULT NULL,
   `updatetime` datetime DEFAULT NULL,
   `visitcount` int(11) DEFAULT NULL COMMENT '访问次数',
   `content` text,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `title` (`title`),
   KEY `author` (`author`),
-  CONSTRAINT `blogtext_ibfk_1` FOREIGN KEY (`author`) REFERENCES `user` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `type` (`type`),
+  CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`author`) REFERENCES `user` (`name`),
+  CONSTRAINT `blog_ibfk_2` FOREIGN KEY (`type`) REFERENCES `type` (`type`)
+) ENGINE=InnoDB AUTO_INCREMENT=203 DEFAULT CHARSET=utf8;
 ```
 
 3. 文章分类表
 
 ```mysql
+DROP TABLE IF EXISTS `type`;
+
 CREATE TABLE `type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(32) NOT NULL,
