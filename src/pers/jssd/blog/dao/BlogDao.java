@@ -61,9 +61,9 @@ public interface BlogDao {
 	/**
 	 * 分页查找
 	 * @param currpage
-	 * @param Type type
+	 * @param Blog blog
 	 * @return PageBean<Blog>
 	 */
-	public PageBean<Blog> findPageBean(int currpage, String type);
+	public PageBean<Blog> findPageBean(int currpage, Blog blog);
 
 }

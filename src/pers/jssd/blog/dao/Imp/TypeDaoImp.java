@@ -30,7 +30,21 @@ public class TypeDaoImp implements TypeDao {
 	@Override
 	public boolean addType(Type type) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean flag = false;
+		try {
+			connection = DBUtil.getConnection();
+			String t = type.getType();
+			String sql = "INSERT INTO type VALUES(null, ?);";
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, t);
+			ps.execute();
+			flag = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			flag = false;
+		}
+		return flag;
 	}
 
 	/* (non-Javadoc)

@@ -8,10 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import pers.jssd.blog.bean.Blog;
-import pers.jssd.blog.bean.PageBean;
 import pers.jssd.blog.bean.Type;
 import pers.jssd.blog.bean.User;
 import pers.jssd.blog.service.BlogService;
@@ -22,20 +20,19 @@ import pers.jssd.blog.service.imp.TypeServiceImp;
 import pers.jssd.blog.service.imp.UserServiceImp;
 
 /**
- * Servlet implementation class MainServlet
+ * Servlet implementation class WriteBlogServlet
  */
-@WebServlet("/MainServlet")
-public class MainServlet extends HttpServlet {
+@WebServlet("/WriteBlogServlet")
+public class WriteBlogServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	UserService userService = new UserServiceImp();
-	BlogService blogService = new BlogServiceImp();
+    BlogService blogService = new BlogServiceImp();
 	TypeService typeService = new TypeServiceImp();
+	UserService userService = new UserServiceImp();
 	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainServlet() {
+    public WriteBlogServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,34 +42,54 @@ public class MainServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		int id = (int) session.getAttribute("loginId");
+		response.setContentType("text/html; charset=utf-8"); 
+		request.setCharacterEncoding("utf-8");
+		boolean flag = false;
+		
 		User user = new User();
-		user.setId(id);
+		int userId = (int) request.getSession().getAttribute("loginId");
+		user.setId(userId);
 		user = userService.getUser(user);
-		request.setAttribute("name", user.getName());
-		request.setAttribute("introduction", user.getIntroduction());
 		
-		String type = request.getParameter("type");
 		Blog blog = new Blog();
-		Type ty = new Type();
-		if(type != null && !type.trim().equals("") && !type.trim().equals("null")) {
-			blog.setType(type);
-		} else {
-			type = null;
-		}
-		int currPage = 1;
-		String strCurrPage = request.getParameter("currPage");
-		if(strCurrPage != null && !strCurrPage.trim().equals("")) {
-			currPage = Integer.parseInt(strCurrPage);
-		}
-		//List<Blog> blogList = blogService.queryBlogList(blog);
-		PageBean<Blog> pageBean = blogService.findPageBean(currPage, blog);
-		List<Type> typeList = typeService.queryTypeList(ty);
-		request.setAttribute("pageBean", pageBean);
-		request.setAttribute("typeList", typeList);
+		String title = request.getParameter("title");
+		String t = request.getParameter("type");
+		String blogInfo = request.getParameter("textinfo");
+		String blogContent = request.getParameter("textcontent");
+		blog.setTitle(title);
+		blog.setAuthor(user.getName());
+		blog.setType(t);
+		blog.setInfo(blogInfo);
+		blog.setContent(blogContent);
 		
-		request.getRequestDispatcher("/main.jsp").forward(request, response);
+		Type type = new Type();
+		type.setType(t);
+		List<Type> list = typeService.queryTypeList(type);
+		if(list.size() != 0) {
+			//有此类型
+			if(blogService.addBlog(blog)) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+		} else {
+			if(!typeService.addType(type)) {
+				System.out.println("添加类型失败");
+			} else {
+				if(blogService.addBlog(blog)) {
+					flag = true;
+				} else {
+					flag = false;
+				}
+			}
+		}
+		
+		if(flag) {
+			request.getRequestDispatcher("/MainServlet").forward(request, response);;
+		} else {
+			request.getRequestDispatcher("/error.jsp").forward(request, response);
+		}
+		
 	}
 
 	/**

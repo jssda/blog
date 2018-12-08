@@ -17,4 +17,10 @@ public interface TypeService {
 	 * @return List<Type>
 	 */
 	public List<Type> queryTypeList(Type type);
+
+	/**
+	 * @param type
+	 * @return boolean
+	 */
+	public boolean addType(Type type);
 }

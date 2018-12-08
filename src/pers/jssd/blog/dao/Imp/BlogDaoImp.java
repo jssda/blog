@@ -178,7 +178,7 @@ public class BlogDaoImp implements BlogDao {
 			if(id != null)
 				sql += " and id = ?";
 			if(auther != null && !auther.trim().equals(""))
-				sql += " and auther = ?";
+				sql += " and author = ?";
 			if(title != null && !title.trim().equals(""))
 				sql += " and title = ?";
 			if(info != null && !info.trim().equals(""))
@@ -253,7 +253,7 @@ public class BlogDaoImp implements BlogDao {
 			if(id != null)
 				sql += " and id = ?";
 			if(auther != null && !auther.trim().equals(""))
-				sql += " and auther = ?";
+				sql += " and author = ?";
 			if(title != null && !title.trim().equals(""))
 				sql += " and title = ?";
 			if(info != null && !info.trim().equals(""))
@@ -317,12 +317,13 @@ public class BlogDaoImp implements BlogDao {
 		try {
 			conn = DBUtil.getConnection();
 			String title = blog.getTitle();
+			System.out.println(title);
 			String sql = "select * from blog where title = ?;";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, title);
-			
 			rs = ps.executeQuery();
 			if(rs.next()) {
+				System.out.println("存在");
 				b = new Blog();
 				int index = 1;
 				b.setId(rs.getInt(index ++));
@@ -335,6 +336,7 @@ public class BlogDaoImp implements BlogDao {
 				b.setVisitCount(rs.getInt(index ++));
 				b.setContent(rs.getString(index ++));
 			}
+			System.out.println("不存在");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -350,7 +352,7 @@ public class BlogDaoImp implements BlogDao {
 	 * @see pers.jssd.blog.dao.BlogDao#findPageBean(int)
 	 */
 	@Override
-	public PageBean<Blog> findPageBean(int currpage, String type) {
+	public PageBean<Blog> findPageBean(int currpage, Blog blog) {
 		// TODO Auto-generated method stub
 		PageBean<Blog> pageBean = new PageBean<>();
 		pageBean.setCurrpage(currpage);
@@ -358,14 +360,23 @@ public class BlogDaoImp implements BlogDao {
 		
 		try {
 			conn = DBUtil.getConnection();
+			String type = blog.getType();
+			String name = blog.getAuthor();
 			String sql = "select count(*) from blog where 1 = 1";
 			if(type != null && !type.trim().equals("")) {
 				sql += " and type = ?";
 			}
+			if(name != null && !name.trim().equals("")) {
+				sql += " and author = ?";
+			}
 			sql += ";";
 			ps = conn.prepareStatement(sql);
+			int index = 1;
 			if(type != null && !type.trim().equals("")) {
-				ps.setString(1, type);
+				ps.setString(index ++, type);
+			}
+			if(name != null && !name.trim().equals("")) {
+				ps.setString(index ++, name);
 			}
 			
 			rs = ps.executeQuery();
@@ -379,8 +390,6 @@ public class BlogDaoImp implements BlogDao {
 				pageBean.setCurrpage(currpage);
 			}
 			
-			Blog blog = new Blog();
-			blog.setType(type);
 			pageBean.setList(this.queryBlog(blog, currpage, 10));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

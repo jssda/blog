@@ -30,15 +30,21 @@ public interface BlogService {
 	
 	/**
 	 * @param currpage
-	 * @param type
+	 * @param blog
 	 * @return PageBean<Blog>
 	 */
-	public PageBean<Blog> findPageBean(int currpage, String type);
+	public PageBean<Blog> findPageBean(int currpage, Blog blog);
 	
 	/**
 	 * @param blog
 	 * @return boolean
 	 */
 	public boolean updateBlog(Blog blog);
+	
+	/**
+	 * @param blog
+	 * @return boolean
+	 */
+	public boolean addBlog(Blog blog);
 	
 }

@@ -22,12 +22,12 @@ import pers.jssd.blog.service.imp.TypeServiceImp;
 import pers.jssd.blog.service.imp.UserServiceImp;
 
 /**
- * Servlet implementation class MainServlet
+ * Servlet implementation class MyBlogServlet
  */
-@WebServlet("/MainServlet")
-public class MainServlet extends HttpServlet {
+@WebServlet("/MyBlogServlet")
+public class MyBlogServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
 	UserService userService = new UserServiceImp();
 	BlogService blogService = new BlogServiceImp();
 	TypeService typeService = new TypeServiceImp();
@@ -35,7 +35,7 @@ public class MainServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainServlet() {
+    public MyBlogServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,16 +45,18 @@ public class MainServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		int id = (int) session.getAttribute("loginId");
-		User user = new User();
-		user.setId(id);
-		user = userService.getUser(user);
-		request.setAttribute("name", user.getName());
-		request.setAttribute("introduction", user.getIntroduction());
+		request.setCharacterEncoding("utf8");
+		response.setContentType("text/html; charset=utf8");
 		
-		String type = request.getParameter("type");
+		HttpSession session = request.getSession();
+		int userId = (int) session.getAttribute("loginId");
+		User user = new User();
+		user.setId(userId);
+		user = userService.getUser(user);
+		
 		Blog blog = new Blog();
+		blog.setAuthor(user.getName());
+		String type = request.getParameter("type");
 		Type ty = new Type();
 		if(type != null && !type.trim().equals("") && !type.trim().equals("null")) {
 			blog.setType(type);
@@ -66,13 +68,14 @@ public class MainServlet extends HttpServlet {
 		if(strCurrPage != null && !strCurrPage.trim().equals("")) {
 			currPage = Integer.parseInt(strCurrPage);
 		}
-		//List<Blog> blogList = blogService.queryBlogList(blog);
 		PageBean<Blog> pageBean = blogService.findPageBean(currPage, blog);
 		List<Type> typeList = typeService.queryTypeList(ty);
 		request.setAttribute("pageBean", pageBean);
 		request.setAttribute("typeList", typeList);
 		
-		request.getRequestDispatcher("/main.jsp").forward(request, response);
+		List<Blog> list = blogService.queryBlogList(blog);
+		request.setAttribute("blogList", list);
+		request.getRequestDispatcher("/myblog.jsp").forward(request, response);
 	}
 
 	/**

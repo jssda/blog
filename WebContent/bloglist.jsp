@@ -1,4 +1,4 @@
-<%@page import="com.sun.media.jfxmedia.track.Track.Encoding"%>
+<%@page import="com.sun.media.jfxmedia.track.Track.Encoding" %>
 <%@page import="java.net.URLEncoder"%>
 <%@ page language="java" import="java.util.*, pers.jssd.blog.bean.*" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -22,7 +22,7 @@
 		<div class="item">
 			<a href="/blog/ViewBlogServlet?title=<%=list.get(i).getTitle() %>" class="title"><%=list.get(i).getTitle() %></a>
 			<div class="status">发布于<%=list.get(i).getCreateTime().toString() %> |
-			<%=list.get(i).getVisitCount() %>阅读人次</div>
+			<%=list.get(i).getVisitCount() %>阅读人次 | 类别<%=list.get(i).getType() %></div>
 			<div class="content"><pre><%=list.get(i).getInfo() %></pre></div>
 		</div>
 	<%	}
@@ -37,28 +37,28 @@
 </div>
 
 <script type="text/javascript">
-	
-	function fun_next() {
-		var next = document.getElementById("next");
-		next.href = "/blog/MainServlet?type=<%=request.getParameter("type") %>&currPage=<%=currPage + 1 %>"; 
-	}
-	
-	function fun_pre() {
-		var pre = document.getElementById("pre");
-		<% if(currPage > 1) { %>
-		<% 
-			String str_type = null;
-			if(request.getParameter("type").equals("c++")) {
-				str_type = "c%2B%2B";
-			} else {
-				str_type = request.getParameter("type");
-			}
-			String url = "/blog/MainServlet?type=" + str_type + "&currPage=" + (currPage - 1);
-		%>
-			pre.href = <%=url %>;
-		<% } else {%>
-			pre.href = "/blog/MainServlet?type=<%=request.getParameter("type") %>&currPage=<%=currPage %>"
-		<% } %>	
-	}
+
+function fun_next() {
+	var next = document.getElementById("next");
+	next.href = "/blog/MainServlet?type=<%=request.getParameter("type") %>&currPage=<%=currPage + 1 %>"; 
+}
+
+function fun_pre() {
+	var pre = document.getElementById("pre");
+	<% if(currPage > 1) { %>
+	<% 
+		String str_type = null;
+		if(request.getParameter("type").equals("c++")) {
+			str_type = "c%2B%2B";
+		} else {
+			str_type = request.getParameter("type");
+		}
+		String url = "/blog/MainServlet?type=" + str_type + "&currPage=" + (currPage - 1);
+	%>
+		pre.href = "<%=url %>";
+	<% } else {%>
+		pre.href = "/blog/MainServlet?type=<%=request.getParameter("type") %>&currPage=<%=currPage %>";
+	<% } %>	
+}
 	
 </script>

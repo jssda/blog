@@ -37,6 +37,7 @@ public class ViewBlogServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		Blog blog = new Blog();
 		blog.setTitle(title);
+		System.out.println(blog.getTitle());
 		blog = blogService.queryBlogByName(blog);
 		if(blog != null) {
 			request.setAttribute("blog", blog);

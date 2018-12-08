@@ -64,12 +64,6 @@ body {
 	color: #454545;
 }
 
-.edit-list {
-	float: right;
-	width: 20%;
-	background-color: black;
-}
-
 .article-list {
 	/*margin-right: 20%;*/
 	background: whitesmoke;

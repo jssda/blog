@@ -45,6 +45,8 @@ public class RegisterServlet extends HttpServlet {
 		String SAge = request.getParameter("age");
 		if(SAge == null || "".equals(SAge)) {
 			user.setAge(0);
+		} else {
+			user.setAge(Integer.parseInt(SAge));
 		}
 		user.setEmail(request.getParameter("email"));
 		user.setTelephone(request.getParameter("telephone"));

@@ -25,5 +25,13 @@ public class TypeServiceImp implements TypeService {
 		// TODO Auto-generated method stub
 		return typeDao.queryTypeList(type);
 	}
+	/* (non-Javadoc)
+	 * @see pers.jssd.blog.service.TypeService#addType(pers.jssd.blog.bean.Type)
+	 */
+	@Override
+	public boolean addType(Type type) {
+		// TODO Auto-generated method stub
+		return typeDao.addType(type);
+	}
 
 }

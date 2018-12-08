@@ -47,6 +47,8 @@ public class DBUtil {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } catch (Exception e) {
+        	System.out.println("数据库连接失败");
         }
         
         return connection;
